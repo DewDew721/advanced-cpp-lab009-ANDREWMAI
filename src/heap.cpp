@@ -51,7 +51,7 @@ int MaxHeap::pop() {
     data_.pop_back();
     if (!empty()) 
     {
-        heapifyDown(0);
+        heapifyDown(0, data_.size());
     }
     return value;
 }
@@ -60,7 +60,7 @@ void MaxHeap::buildHeap(const std::vector<int>& values) {
     data_ = values;
     for (std::size_t i = data_.size() / 2; i > 0; --i) 
     {
-        heapifyDown(i - 1);
+        heapifyDown(i - 1, data_.size());
     }
 }
 
@@ -68,7 +68,7 @@ std::vector<int> MaxHeap::heapSort() {
     for (std::size_t i = data_.size(); i > 1; --i) 
     {
         swap(data_.front(), data_[i - 1]);
-        heapifyDown(0);
+        heapifyDown(0, i - 1);
     }
     return data_;
 }
@@ -105,18 +105,17 @@ void MaxHeap::heapifyUp(std::size_t index) {
     }
 }
 
-void MaxHeap::heapifyDown(std::size_t index) {
-    std::size_t n = data_.size();
+void MaxHeap::heapifyDown(std::size_t index, std::size_t heapSize) {
     while (true)
     {
         std::size_t left = leftChildIndex(index);
         std::size_t right = rightChildIndex(index);
         std::size_t largest = index;
 
-        if (left < n && data_[left] > data_[largest]) {
+        if (left < heapSize && data_[left] > data_[largest]) {
             largest = left;
         }
-        if (right < n && data_[right] > data_[largest]) {
+        if (right < heapSize && data_[right] > data_[largest]) {
             largest = right;
         }
 

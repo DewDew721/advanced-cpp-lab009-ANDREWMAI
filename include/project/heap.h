@@ -28,7 +28,7 @@ private:
     static std::size_t rightChildIndex(std::size_t index);
 
     void heapifyUp(std::size_t index);
-    void heapifyDown(std::size_t index);
+    void heapifyDown(std::size_t index, std::size_t heapSize);
     void swap(int& a, int& b);
     bool isValidHeap() const;
 };
